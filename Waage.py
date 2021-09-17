@@ -6,7 +6,7 @@ try:
         dout_pin=5,
         pd_sck_pin=6,
         channel='A',
-        gain=128
+        gain=64
     )
 
     print("1")
