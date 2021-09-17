@@ -13,6 +13,7 @@ def take_a_measurement():
     # Returns a 3-byte string:
     return hx711_read()
 
+print("ich initialisiere!")
 init()
 while True:
     take_a_measurement()
