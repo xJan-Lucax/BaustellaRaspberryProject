@@ -2,6 +2,7 @@ from snappy_hx711 import *
 
 CLOCK_PIN = 6
 DATA_PIN = 7
+HOOK_INIT = 1
 
 @setHook(HOOK_INIT)
 
