@@ -6,7 +6,7 @@ try:
         dout_pin=5,
         pd_sck_pin=6,
         channel='A',
-        gain=64
+        gain=32
     )
 
     hx711.reset()   # Before we start, reset the HX711 (not obligate)
