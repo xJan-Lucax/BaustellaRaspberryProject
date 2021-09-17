@@ -1,21 +1,17 @@
-from snappy_hx711 import *
+from RPi.GPIO import GPIO
+from hx711 import HX711
 
-CLOCK_PIN = 6
-DATA_PIN = 7
-#HOOK_INIT = 1
+try:
+    hx711 = HX711(
+        dout_pin=5,
+        pd_sck_pin=6,
+        channel='A',
+        gain=64
+    )
 
-#@setHook(HOOK_INIT)
+    hx711.reset()   # Before we start, reset the HX711 (not obligate)
+    measures = hx711.get_raw_data(num_measures=3)
+finally:
+    GPIO.cleanup()  # always do a GPIO cleanup in your scripts!
 
-def init():
-    # Must be called before making measurements:
-    hx711_begin(CLOCK_PIN, DATA_PIN)
-
-def take_a_measurement():
-    # Returns a 3-byte string:
-    return hx711_read()
-
-print("ich initialisiere!")
-init()
-while True:
-    take_a_measurement()
-    print("I DO")
+print("\n".join(measures))
