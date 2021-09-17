@@ -1,22 +1,16 @@
-import RPi.GPIO as GPIO
-from hx711 import HX711
 
-try:
-    hx711 = HX711(
-        dout_pin=5,
-        pd_sck_pin=6,
-        channel='A',
-        gain=64
-    )
+ #       dout_pin=5,
+ #       pd_sck_pin=6,
 
-    print("1")
-    hx711.reset()   # Before we start, reset the HX711 (not obligate)
-    print("2")
-    measures = hx711.get_raw_data(num_measures=3)
-    print("3")
-finally:
-    print("4")
-    GPIO.cleanup()  # always do a GPIO cleanup in your scripts!
+from HX711 import *
 
-print("5")
-print("\n".join(measures))
+# create a SimpleHX711 object using GPIO pin 2 as the data pin,
+# GPIO pin 3 as the clock pin, -370 as the reference unit, and
+# -367471 as the offset
+with SimpleHX711(5, 6, -370, -367471) as hx:
+# set the scale to output weights in ounces
+    hx.setUnit(Mass.Unit.OZ)
+
+    # constantly output weights using the median of 35 samples
+while True:
+    print(hx.weight(35))  # eg. 1.08 oz
